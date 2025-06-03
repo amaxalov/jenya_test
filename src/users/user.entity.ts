@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { ChatContext } from '../openai/chat-context.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User {
@@ -10,4 +11,7 @@ export class User {
 
   @Column()
   lastName: string;
+
+  @OneToMany(() => ChatContext, (chatContext) => chatContext.userId)
+  chatContexts: ChatContext[];
 }
