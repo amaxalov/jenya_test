@@ -1,0 +1,40 @@
+services:
+  postgres:
+    container_name: backend-postgres-jenya-dev
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - postgres_jenya_dev:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - bot_network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_DATABASES=16
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - redis_jenya_dev:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - bot_network
+
+networks:
+  bot_network:
+    name: backend-network-jenya-dev
+    driver: bridge
+
+volumes:
+  postgres_jenya_dev:
+  redis_jenya_dev:
+
+x-cleanup: &cleanup
+  - docker-compose -f docker-compose.dev.yml down -v --remove-orphans 
