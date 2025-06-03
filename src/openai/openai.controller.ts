@@ -13,9 +13,8 @@ export class OpenAIController {
     @Request() req: FastifyRequest & { user: AccessTokenPayload },
     @Body() chatMessageDto: ChatMessageDto,
   ): Promise<{ response: string }> {
-    console.log(req.user);
     const response = await this.openAIService.processMessage(
-      123,
+      req.user.sub,
       chatMessageDto,
     );
     return { response };

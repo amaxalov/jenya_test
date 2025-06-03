@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { User } from '../users/user.entity';
 
@@ -14,6 +15,7 @@ export class ChatContext {
   id: number;
 
   @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: 'userId' })
   userId: number;
 
   @Column('jsonb')

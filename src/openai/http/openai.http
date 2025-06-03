@@ -1,7 +1,10 @@
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc0ODk1MjUzNSwiZXhwIjoxNzQ5NTU3MzM1fQ.2TL4uNG5XhTtTec0MUHaSu2fqL5yLnFTBD0k0gKu3Q8
+
 POST http://localhost:4000/openai/chat
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc0ODk1MjE3NCwiZXhwIjoxNzQ5NTU2OTc0fQ.8VKw_ZlpoVmc7_lVGaSt_R6tJOaK61j5NoYx6Jl2E3g
+Authorization: Bearer {{accessToken}}
 
 {
-  "message": "Hello, how are you?"
+  "message": "Все что требовалось знать))",
+  "language": "ru"
 }
