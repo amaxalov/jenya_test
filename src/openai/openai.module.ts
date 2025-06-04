@@ -3,10 +3,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { OpenAIController } from './openai.controller';
 import { OpenAIService } from './openai.service';
-import { ChatContext } from './chat-context.entity';
+import { Chat } from './chat-context.entity';
+import { User } from 'src/users/user.entity';
+import { PromptsModule } from 'src/prompts/prompts.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ChatContext]), ConfigModule],
+  imports: [
+    TypeOrmModule.forFeature([Chat, User]),
+    ConfigModule,
+    PromptsModule,
+  ],
   controllers: [OpenAIController],
   providers: [OpenAIService],
   exports: [OpenAIService],

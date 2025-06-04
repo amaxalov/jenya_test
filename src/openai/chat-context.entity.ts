@@ -10,7 +10,7 @@ import {
 import { User } from '../users/user.entity';
 
 @Entity()
-export class ChatContext {
+export class Chat {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,6 +24,15 @@ export class ChatContext {
     content: string;
     timestamp: Date;
   }>;
+
+  @Column('jsonb', { nullable: true })
+  taskContext: {
+    type?: string;
+    status?: string;
+    promptName?: string;
+    parameters?: Record<string, any>;
+    metadata?: Record<string, any>;
+  };
 
   @CreateDateColumn()
   createdAt: Date;

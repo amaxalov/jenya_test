@@ -1,22 +1,50 @@
-import { Controller, Post, Body, Request } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Put,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { OpenAIService } from './openai.service';
 import { ChatMessageDto } from './dto/chat-message.dto';
-import { AccessTokenPayload } from 'src/auth/types/access-token-payload';
-import { FastifyRequest } from 'fastify';
+import { UpdateChatContextDto } from './dto/update-chat-context.dto';
+import { User } from '../decorators/user.decorator';
 
-@Controller('openai')
+@Controller('chats')
 export class OpenAIController {
   constructor(private readonly openAIService: OpenAIService) {}
 
-  @Post('chat')
-  async chat(
-    @Request() req: FastifyRequest & { user: AccessTokenPayload },
+  @Post()
+  async createChat(@User('sub') userId: number) {
+    return this.openAIService.createChat(userId);
+  }
+
+  @Get()
+  async getUserChats(@User('sub') userId: number) {
+    return this.openAIService.getUserChats(userId);
+  }
+
+  @Post(':chatId/messages')
+  async processMessage(
+    @User('sub') userId: number,
+    @Param('chatId', ParseIntPipe) chatId: number,
     @Body() chatMessageDto: ChatMessageDto,
-  ): Promise<{ response: string }> {
-    const response = await this.openAIService.processMessage(
-      req.user.sub,
-      chatMessageDto,
+  ) {
+    return this.openAIService.processMessage(userId, chatId, chatMessageDto);
+  }
+
+  @Put(':chatId/context')
+  async updateChatContext(
+    @User('sub') userId: number,
+    @Param('chatId', ParseIntPipe) chatId: number,
+    @Body() updateChatContextDto: UpdateChatContextDto,
+  ) {
+    return this.openAIService.updateChatContext(
+      chatId,
+      userId,
+      updateChatContextDto.taskContext,
     );
-    return { response };
   }
 }

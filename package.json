@@ -11,10 +11,10 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "migration:generate": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate -d src/database/database.source.ts src/database/migrations/migration",
-    "migration:up": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run -d src/database/database.source.ts",
-    "migration:down": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert -d src/database/database.source.ts",
-    "migration:create": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:create src/database/migrations/migration"
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/database/database.source.ts src/database/migrations/migration",
+    "migration:up": "npx typeorm-ts-node-commonjs migration:run -d src/database/database.source.ts",
+    "migration:down": "npx typeorm-ts-node-commonjs migration:revert -d src/database/database.source.ts",
+    "migration:create": "npx typeorm-ts-node-commonjs migration:create src/database/migrations/migration"
   },
   "dependencies": {
     "@fastify/cookie": "11.0.2",
