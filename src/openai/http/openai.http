@@ -1,4 +1,5 @@
 @accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc0ODk1MjUzNSwiZXhwIjoxNzQ5NTU3MzM1fQ.2TL4uNG5XhTtTec0MUHaSu2fqL5yLnFTBD0k0gKu3Q8
+@chatId = 12
 
 POST http://localhost:4000/chats
 Content-Type: application/json
@@ -8,10 +9,43 @@ Authorization: Bearer {{accessToken}}
 
 ###
 
-POST http://localhost:4000/chats/1/messages
+POST http://localhost:4000/chats/{{chatId}}/messages
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "message": "Привет, мне нужно тренироваться"
+  "message": "Хочу тренироваться"
+}
+
+###
+
+POST http://localhost:4000/chats/{{chatId}}/messages
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "message": "Накачаю бицепс и трицепс, похудеть и выглядеть лучше"
+}
+
+
+###
+
+POST http://localhost:4000/chats/{{chatId}}/messages
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "message": "Я планирую тренироваться 3 раза в неделю по понедельникам, средам и пятницам по 1 часу в 19:00"
+}
+
+
+
+###
+
+POST http://localhost:4000/chats/{{chatId}}/messages
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "message": "В понедеьник я тренируюсь ноги, в среду спину и пресс, в пятницу грудь и бицепс"
 }

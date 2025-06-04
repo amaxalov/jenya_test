@@ -34,6 +34,12 @@ export class Chat {
     metadata?: Record<string, any>;
   };
 
+  @Column({ type: 'varchar', default: 'initial' })
+  step?: string;
+
+  @Column('jsonb', { nullable: true })
+  collectedData?: Record<string, any>;
+
   @CreateDateColumn()
   createdAt: Date;
 
